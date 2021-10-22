@@ -11,5 +11,5 @@ def convert_datetime_to_date_str(dt: datetime) -> str:
 
 
 def test_convert_datetime():
-    result = '2021-10-21'
+    result = str(datetime.now().date())
     assert convert_datetime_to_date_str(datetime.now()) == result
