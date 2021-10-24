@@ -6,7 +6,7 @@ app.id_count = 1
 
 
 @app.route("/")
-def index():
+def index() -> str:
     return "Hello Justin!"
 
 

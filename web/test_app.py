@@ -13,6 +13,13 @@ def api():
     return api
 
 
+def test_index(api):
+    response = api.get("/")
+
+    print(f"response data: {response.data}")
+    assert response.data == b"Hello Justin!"
+
+
 def test_user(api):
     new_user = {
         "email": "hsuk@thecommerce.co.kr",
