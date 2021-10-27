@@ -33,5 +33,7 @@ def test_user(api):
         content_type="application/json"
     )
 
+    print(f"response: {response}")
+    print(f"response status code: {response.status_code}")
     print(f"response data: {response.data}")
     assert response.status_code == 200
