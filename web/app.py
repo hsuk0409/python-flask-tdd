@@ -1,13 +1,20 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, g
 
 app = Flask(__name__)
+app.debug = True
 app.users = {}
 app.id_count = 1
 
 
+@app.before_request
+def before_request():
+    print("before request!!")
+    g.user_name = "justin"
+
+
 @app.route("/")
 def index() -> str:
-    return "Hello Justin!"
+    return "Hello " + getattr(g, "user_name", "user_name")
 
 
 @app.route("/sign-up", methods=['POST'])
@@ -19,7 +26,3 @@ def sign_up():
     app.id_count += 1
 
     return jsonify(new_user)
-
-
-if __name__ == "__main__":
-    app.run()
