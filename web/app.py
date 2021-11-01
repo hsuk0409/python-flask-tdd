@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, g
+from flask import Flask, request, jsonify, g, make_response
 
 app = Flask(__name__)
 app.debug = True
@@ -26,3 +26,23 @@ def sign_up():
     app.id_count += 1
 
     return jsonify(new_user)
+
+
+@app.route("/test_wsgi")
+def wsgi_test():
+    def application(environ, start_response):
+        print(environ)
+        body = "The request method was %s" % environ["REQUEST_METHOD"]
+        headers = [("Content-Type", "text/plain"),
+                   ("Content-Length", str(len(body)))]
+        start_response("200 OK", headers)
+
+        return [body]
+
+    return make_response(application)
+
+
+@app.route("/rp")
+def rp():
+    q = request.args.get("q")
+    return "q=%s" % str(q)
